@@ -67,17 +67,22 @@
             }
 
             function number(button) {
+                if (opValue.length == 0 && total.innerHTML !== "") {
+                    clearCal();
+                }
                 result.value += button.value;
             }
             function operator(button) {
                 const total = document.getElementById("total");
                 const value = result.value;
+                if (opValue.length == 0 && total.innerHTML !== "") {
+                    clearCal();
+                }
                 result.value = "";
                 values.push(value);
                 opValue.push(button.value);
+
                 total.innerHTML += value + " " + button.value + " ";
-                // console.log(values);
-                // console.log(opValue);
             }
             function resultCal() {
                 var totalValue = 0;
@@ -102,7 +107,7 @@
                         }
                     }
                 }
-                resultInput.value = totalValue;
+                resultInput.value = "= " + totalValue;
                 values.length = 0;
                 opValue.length = 0;
             }
