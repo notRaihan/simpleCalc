@@ -24,7 +24,7 @@
                 <div id="total"></div>
                 <input
                     type="text"
-                    class="w-25"
+                    class="w-25 p-1 text-end"
                     name="result"
                     id="result"
                     disabled
@@ -34,30 +34,37 @@
                 <button onclick="number(this)" value="1">1</button>
                 <button onclick="number(this)" value="2">2</button>
                 <button onclick="number(this)" value="3">3</button>
+                <button onclick="operator(this)" value="+">+</button>
                 <br />
                 <button onclick="number(this)" value="4">4</button>
                 <button onclick="number(this)" value="5">5</button>
                 <button onclick="number(this)" value="6">6</button>
+                <button onclick="operator(this)" value="-">-</button>
                 <br />
                 <button onclick="number(this)" value="7">7</button>
                 <button onclick="number(this)" value="8">8</button>
                 <button onclick="number(this)" value="9">9</button>
-                <br />
-                <button onclick="operator(this)" value="+">+</button>
-                <button onclick="operator(this)" value="-">-</button>
                 <button onclick="operator(this)" value="*">*</button>
+                <br />
                 <button onclick="operator(this)" value="/">/</button>
-                <br /><br />
-
+                <button onclick="number(this)" value="0">0</button>
                 <button onclick="resultCal()">=</button>
+                <button onclick="clearCal()">C</button>
+                <br /><br />
             </div>
         </main>
 
         <script>
-            //const operator = document.getElementById("operator").value;
-            var result = document.getElementById("result");
             const values = [];
-            const operatorVal = [];
+            const opValue = [];
+            var resultInput = document.getElementById("result");
+
+            function clearCal() {
+                resultInput.value = "";
+                values.length = 0;
+                opValue.length = 0;
+                total.innerHTML = "";
+            }
 
             function number(button) {
                 result.value += button.value;
@@ -67,32 +74,37 @@
                 const value = result.value;
                 result.value = "";
                 values.push(value);
-                operatorVal.push(button.value);
-                total.innerHTML = value + button.value;
+                opValue.push(button.value);
+                total.innerHTML += value + " " + button.value + " ";
+                // console.log(values);
+                // console.log(opValue);
             }
             function resultCal() {
-                switch (operatorVal[0]) {
-                    case "+":
-                        total.innerHTML += result.value;
-                        result.value =
-                            parseInt(values[0]) + parseInt(result.value);
-                        break;
-                    case "-":
-                        total.innerHTML += result.value;
-                        result.value =
-                            parseInt(values[0]) - parseInt(result.value);
-                        break;
-                    case "*":
-                        total.innerHTML += result.value;
-                        result.value =
-                            parseInt(values[0]) * parseInt(result.value);
-                        break;
-                    case "/":
-                        total.innerHTML += result.value;
-                        result.value =
-                            parseInt(values[0]) / parseInt(result.value);
-                        break;
+                var totalValue = 0;
+                total.innerHTML += result.value;
+                values.push(result.value);
+                for (let i = 0; i < values.length; i++) {
+                    if (i == 0) {
+                        totalValue = values[i];
+                    } else {
+                        if (opValue[i - 1] == "+") {
+                            totalValue =
+                                parseInt(totalValue) + parseInt(values[i]);
+                        } else if (opValue[i - 1] == "-") {
+                            totalValue =
+                                parseInt(totalValue) - parseInt(values[i]);
+                        } else if (opValue[i - 1] == "*") {
+                            totalValue =
+                                parseInt(totalValue) * parseInt(values[i]);
+                        } else if (opValue[i - 1] == "/") {
+                            totalValue =
+                                parseInt(totalValue) / parseInt(values[i]);
+                        }
+                    }
                 }
+                resultInput.value = totalValue;
+                values.length = 0;
+                opValue.length = 0;
             }
         </script>
     </body>
