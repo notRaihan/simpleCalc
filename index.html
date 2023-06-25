@@ -21,20 +21,7 @@
     <body>
         <main>
             <div class="container m-4">
-                <label for="firstNum">Fist Num:</label>
-                <input type="number" name="firstNum" id="firstNum" value="12" />
-                <br /><br />
-                <select name="operator" id="operator">
-                    <option value="addition">Addition</option>
-                    <option value="subtract">Subtract</option>
-                    <option value="multiply">Multiply</option>
-                    <option value="division">Division</option>
-                </select>
-                <br /><br />
-                <label for="secNum">Second Num:</label>
-                <input type="number" name="secNum" id="secNum" /> <br /><br />
-
-                <button onclick="result()">=</button>
+                <div id="total"></div>
                 <input
                     type="text"
                     class="w-25"
@@ -42,32 +29,68 @@
                     id="result"
                     disabled
                 />
+                <br />
+                <br />
+                <button onclick="number(this)" value="1">1</button>
+                <button onclick="number(this)" value="2">2</button>
+                <button onclick="number(this)" value="3">3</button>
+                <br />
+                <button onclick="number(this)" value="4">4</button>
+                <button onclick="number(this)" value="5">5</button>
+                <button onclick="number(this)" value="6">6</button>
+                <br />
+                <button onclick="number(this)" value="7">7</button>
+                <button onclick="number(this)" value="8">8</button>
+                <button onclick="number(this)" value="9">9</button>
+                <br />
+                <button onclick="operator(this)" value="+">+</button>
+                <button onclick="operator(this)" value="-">-</button>
+                <button onclick="operator(this)" value="*">*</button>
+                <button onclick="operator(this)" value="/">/</button>
+                <br /><br />
+
+                <button onclick="resultCal()">=</button>
             </div>
         </main>
 
         <script>
-            function result() {
-                const firstNum = parseInt(
-                    document.getElementById("firstNum").value
-                );
-                const secNum = parseInt(
-                    document.getElementById("secNum").value
-                );
-                const operator = document.getElementById("operator").value;
-                const result = document.getElementById("result");
+            //const operator = document.getElementById("operator").value;
+            var result = document.getElementById("result");
+            const values = [];
+            const operatorVal = [];
 
-                switch (operator) {
-                    case "addition":
-                        result.value = firstNum + secNum;
+            function number(button) {
+                result.value += button.value;
+            }
+            function operator(button) {
+                const total = document.getElementById("total");
+                const value = result.value;
+                result.value = "";
+                values.push(value);
+                operatorVal.push(button.value);
+                total.innerHTML = value + button.value;
+            }
+            function resultCal() {
+                switch (operatorVal[0]) {
+                    case "+":
+                        total.innerHTML += result.value;
+                        result.value =
+                            parseInt(values[0]) + parseInt(result.value);
                         break;
-                    case "subtract":
-                        result.value = firstNum - secNum;
+                    case "-":
+                        total.innerHTML += result.value;
+                        result.value =
+                            parseInt(values[0]) - parseInt(result.value);
                         break;
-                    case "multiply":
-                        result.value = firstNum * secNum;
+                    case "*":
+                        total.innerHTML += result.value;
+                        result.value =
+                            parseInt(values[0]) * parseInt(result.value);
                         break;
-                    case "division":
-                        result.value = firstNum / secNum;
+                    case "/":
+                        total.innerHTML += result.value;
+                        result.value =
+                            parseInt(values[0]) / parseInt(result.value);
                         break;
                 }
             }
