@@ -31,100 +31,29 @@
                 />
                 <br />
                 <br />
-                <button onclick="number(this)" value="1">1</button>
-                <button onclick="number(this)" value="2">2</button>
-                <button onclick="number(this)" value="3">3</button>
-                <button onclick="operator(this)" value="+">+</button>
+                <button class="number" value="1">1</button>
+                <button class="number" value="2">2</button>
+                <button class="number" value="3">3</button>
+                <button class="operator" value="+">+</button>
                 <br />
-                <button onclick="number(this)" value="4">4</button>
-                <button onclick="number(this)" value="5">5</button>
-                <button onclick="number(this)" value="6">6</button>
-                <button onclick="operator(this)" value="-">-</button>
+                <button class="number" value="4">4</button>
+                <button class="number" value="5">5</button>
+                <button class="number" value="6">6</button>
+                <button class="operator" value="-">-</button>
                 <br />
-                <button onclick="number(this)" value="7">7</button>
-                <button onclick="number(this)" value="8">8</button>
-                <button onclick="number(this)" value="9">9</button>
-                <button onclick="operator(this)" value="*">*</button>
+                <button class="number" value="7">7</button>
+                <button class="number" value="8">8</button>
+                <button class="number" value="9">9</button>
+                <button class="operator" value="*">*</button>
                 <br />
-                <button onclick="operator(this)" value="/">/</button>
-                <button onclick="number(this)" value="0">0</button>
-                <button onclick="resultCal()">=</button>
-                <button onclick="clearCal()">C</button>
+                <button class="operator" value="/">/</button>
+                <button class="number" value="0">0</button>
+                <button id="resultCal">=</button>
+                <button id="clearCal">C</button>
                 <br /><br />
             </div>
         </main>
 
-        <script>
-            const values = [];
-            const opValue = [];
-            var resultInput = document.getElementById("result");
-
-            function clearCal() {
-                resultInput.value = "";
-                values.length = 0;
-                opValue.length = 0;
-                total.innerHTML = "";
-            }
-
-            function number(button) {
-                if (opValue.length == 0 && total.innerHTML !== "") {
-                    clearCal();
-                }
-                result.value += button.value;
-            }
-            function operator(button) {
-                const total = document.getElementById("total");
-                const value = resultInput.value;
-
-                if (resultInput.value.includes("=") && values.length == 0) {
-                    const value = resultInput.value.replace("=", "");
-                    values.push(value);
-                    opValue.push(button.value);
-                    total.innerHTML = "";
-                    total.innerHTML = value + " " + button.value + " ";
-                    result.value = "";
-                    return;
-                }
-                result.value = "";
-                values.push(value);
-                opValue.push(button.value);
-
-                total.innerHTML += value + " " + button.value + " ";
-            }
-            function resultCal() {
-                if (
-                    opValue.length == 0 ||
-                    (values.length == 1 && resultInput.value == "")
-                ) {
-                    return;
-                }
-                var totalValue = 0;
-                total.innerHTML += result.value;
-
-                values.push(result.value);
-                for (let i = 0; i < values.length; i++) {
-                    if (i == 0) {
-                        totalValue = values[i];
-                    } else {
-                        if (opValue[i - 1] == "+") {
-                            totalValue =
-                                parseInt(totalValue) + parseInt(values[i]);
-                        } else if (opValue[i - 1] == "-") {
-                            totalValue =
-                                parseInt(totalValue) - parseInt(values[i]);
-                        } else if (opValue[i - 1] == "*") {
-                            totalValue =
-                                parseInt(totalValue) * parseInt(values[i]);
-                        } else if (opValue[i - 1] == "/") {
-                            totalValue =
-                                parseInt(totalValue) / parseInt(values[i]);
-                        }
-                    }
-                }
-                resultInput.value = "= " + totalValue;
-                values.length = 0;
-                opValue.length = 0;
-            }
-        </script>
+        <script src="calculator.js"></script>
     </body>
 </html>
