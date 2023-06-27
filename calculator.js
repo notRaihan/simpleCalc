@@ -33,7 +33,7 @@ document.addEventListener('DOMContentLoaded', (event) => {
     }
 
     function operator(event) {
-        if (lastButtonWasOperator) {
+        if (lastButtonWasOperator || (values.length === 0 && resultInput.value === "")) {
             return;
         }
 
@@ -59,9 +59,10 @@ document.addEventListener('DOMContentLoaded', (event) => {
 
     function resultCal() {
         if (
-            opValue.length === 0 ||
+            (opValue.length === 0) ||
             (values.length === 1 && resultInput.value === "")
-        ) {
+            ||
+            (values.length === opValue.length && resultInput.value === "")) {
             return;
         }
         let totalValue = 0;
