@@ -74,9 +74,16 @@
             }
             function operator(button) {
                 const total = document.getElementById("total");
-                const value = result.value;
-                if (opValue.length == 0 && total.innerHTML !== "") {
-                    clearCal();
+                const value = resultInput.value;
+
+                if (resultInput.value.includes("=") && values.length == 0) {
+                    const value = resultInput.value.replace("=", "");
+                    values.push(value);
+                    opValue.push(button.value);
+                    total.innerHTML = "";
+                    total.innerHTML = value + " " + button.value + " ";
+                    result.value = "";
+                    return;
                 }
                 result.value = "";
                 values.push(value);
@@ -85,8 +92,15 @@
                 total.innerHTML += value + " " + button.value + " ";
             }
             function resultCal() {
+                if (
+                    opValue.length == 0 ||
+                    (values.length == 1 && resultInput.value == "")
+                ) {
+                    return;
+                }
                 var totalValue = 0;
                 total.innerHTML += result.value;
+
                 values.push(result.value);
                 for (let i = 0; i < values.length; i++) {
                     if (i == 0) {
